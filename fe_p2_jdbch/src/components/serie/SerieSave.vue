@@ -4,7 +4,7 @@ import http from '@/plugins/axios'
 import Button from 'primevue/button'
 import Dialog from 'primevue/dialog'
 import InputText from 'primevue/inputtext'
-import { DatePicker, InputNumber, Textarea } from 'primevue'
+import { InputNumber, Textarea } from 'primevue'
 import { computed, ref, watch } from 'vue'
 
 const ENDPOINT = 'series'
@@ -42,9 +42,8 @@ async function handleSave() {
       director: serie.value.director.trim(),
       temporadas: serie.value.temporadas,
       fechaEstreno: serie.value.fechaEstreno,
+      tipoGenero: serie.value.tipoGenero.trim(),
     }
-    console.log('Valor de fechaEstreno:', serie.value.fechaEstreno)
-    console.log('Tipo de dato de fechaEstreno:', typeof serie.value.fechaEstreno)
     if (props.modoEdicion) {
       await http.patch(`${ENDPOINT}/${serie.value.id}`, body)
     } else {
@@ -112,6 +111,16 @@ async function handleSave() {
           class="flex-auto custom-date"
         />
       </div>
+      <div class="flex items-center gap-4 mb-4">
+        <label for="tipoGenero" class="font-semibold w-4">Tipo de Género</label>
+        <select id="tipoGenero" v-model="serie.tipoGenero" class="flex-auto">
+          <option value="">Selecciona el tipo de género</option>
+          <option value="accion">Acción</option>
+          <option value="comedia">Comedia</option>
+          <option value="terror">Terror</option>
+          <option value="drama">Drama</option>
+        </select>
+      </div>
 
       <div class="flex justify-end gap-2">
         <Button
@@ -134,7 +143,6 @@ async function handleSave() {
   font-size: 1rem;
   border: 1px solid #4a4a4a; /* Un gris oscuro para el borde */
   border-radius: 0.25rem;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1); /*Sombra interna*/
   background-color: #09090b; /* Fondo oscuro */
   color: #ffffff; /* Letras claras */
 }
@@ -142,6 +150,5 @@ async function handleSave() {
 .custom-date:focus {
   border-color: #6b6b6b; /* Un gris ligeramente más claro al enfocar */
   outline: 0;
-  box-shadow: 0 0 0 0.2rem rgba(106, 106, 255, 0.25); /* Sombra con un toque de color */
 }
 </style>

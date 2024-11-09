@@ -5,4 +5,5 @@ export interface Serie {
   director: string
   temporadas: number
   fechaEstreno: Date
+  tipoGenero: string
 }

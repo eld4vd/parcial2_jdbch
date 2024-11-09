@@ -50,6 +50,7 @@ defineExpose({ obtenerLista })
           <th>Director</th>
           <th>Temporadas</th>
           <th>Fecha de Estreno</th>
+          <th>Tipo Genero</th>
           <th>Operaciones</th>
         </tr>
       </thead>
@@ -61,6 +62,7 @@ defineExpose({ obtenerLista })
           <td>{{ serie.director }}</td>
           <td>{{ serie.temporadas }}</td>
           <td>{{ dayjs(serie.fechaEstreno).format('DD-MM-YYYY') }}</td>
+          <td>{{ serie.tipoGenero }}</td>
           <td>
             <Button icon="pi pi-pencil" aria-label="Editar" text @click="emitirEdicion(serie)" />
             <Button
@@ -117,40 +119,5 @@ th {
 td {
   background-color: #444;
   color: white;
-}
-
-th:nth-child(1),
-td:nth-child(1) {
-  width: 5%;
-}
-
-th:nth-child(2),
-td:nth-child(2) {
-  width: 15%;
-}
-
-th:nth-child(3),
-td:nth-child(3) {
-  width: 35%;
-}
-
-th:nth-child(4),
-td:nth-child(4) {
-  width: 15%;
-}
-
-th:nth-child(5),
-td:nth-child(5) {
-  width: 10%;
-}
-
-th:nth-child(6),
-td:nth-child(6) {
-  width: 10%;
-}
-
-th:nth-child(7),
-td:nth-child(7) {
-  width: 10%;
 }
 </style>

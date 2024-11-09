@@ -26,6 +26,7 @@ export class SeriesService {
     serie.director = createSeriesDto.director.trim();
     serie.temporadas = createSeriesDto.temporadas;
     serie.fechaEstreno = new Date(createSeriesDto.fechaEstreno);
+    serie.tipoGenero = createSeriesDto.tipoGenero.trim();
     return this.seriesRepository.save(serie);
   }
 
@@ -48,6 +49,7 @@ export class SeriesService {
     serie.director = updateSeriesDto.director.trim();
     serie.temporadas = updateSeriesDto.temporadas;
     serie.fechaEstreno = new Date(updateSeriesDto.fechaEstreno);
+    serie.tipoGenero = updateSeriesDto.tipoGenero.trim();
     return this.seriesRepository.save(serie);
   }
 

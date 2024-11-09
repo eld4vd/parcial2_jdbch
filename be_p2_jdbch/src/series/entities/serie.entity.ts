@@ -3,6 +3,10 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -24,6 +28,9 @@ export class Serie {
   @Column('int')
   temporadas: number;
 
+  @Column('varchar', { length: 100 })
+  tipoGenero: string;
+
   @Column('date', { name: 'fecha_estreno' })
   fechaEstreno: Date;
 
@@ -35,4 +42,6 @@ export class Serie {
 
   @DeleteDateColumn({ name: 'fecha_eliminacion', select: false })
   fechaEliminacion: Date;
+
+
 }
