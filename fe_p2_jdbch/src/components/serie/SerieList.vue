@@ -4,6 +4,7 @@ import http from '@/plugins/axios'
 import Button from 'primevue/button'
 import Dialog from 'primevue/dialog'
 import { onMounted, ref } from 'vue'
+import dayjs from 'dayjs'
 
 const ENDPOINT = 'series'
 let series = ref<Serie[]>([])
@@ -59,7 +60,7 @@ defineExpose({ obtenerLista })
           <td>{{ serie.sinopsis }}</td>
           <td>{{ serie.director }}</td>
           <td>{{ serie.temporadas }}</td>
-          <td>{{ serie.fechaEstreno }}</td>
+          <td>{{ dayjs(serie.fechaEstreno).format('DD-MM-YYYY') }}</td>
           <td>
             <Button icon="pi pi-pencil" aria-label="Editar" text @click="emitirEdicion(serie)" />
             <Button

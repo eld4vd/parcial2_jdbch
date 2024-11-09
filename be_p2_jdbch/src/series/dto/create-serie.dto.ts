@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Type } from 'class-transformer';
+import { Transform, Type } from 'class-transformer';
 import {
   IsDate,
   IsDateString,
@@ -43,10 +43,7 @@ export class CreateSerieDto {
   readonly temporadas: number;
 
   @ApiProperty()
-  @IsDefined({ message: 'El campo fechaLanzamiento debe estar definido' })
-  @IsDateString(
-    {},
-    { message: 'El campo fechaLanzmiento debe ser de tipo fecha' },
-  )
+  @IsDefined({ message: 'El campo fechaEstreno debe estar definido' })
+  @IsDateString({}, { message: 'El campo fechaEstreno debe ser de tipo fecha' })
   readonly fechaEstreno: Date;
 }

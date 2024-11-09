@@ -31,28 +31,20 @@ watch(
   () => props.serie,
   (newVal) => {
     serie.value = { ...newVal }
-
-    // Si fechaEstreno es una cadena, convertirla a Date
-    if (serie.value.fechaEstreno && typeof serie.value.fechaEstreno === 'string') {
-      serie.value.fechaEstreno = new Date(serie.value.fechaEstreno) // Convierte la fecha a un objeto Date
-    }
-
-    // Si fechaEstreno ya es un objeto Date, no hace falta modificarlo
-    if (serie.value.fechaEstreno && !(serie.value.fechaEstreno instanceof Date)) {
-      serie.value.fechaEstreno = new Date(serie.value.fechaEstreno) // Asegúrate de que sea un Date válido
-    }
   },
 )
 
 async function handleSave() {
   try {
     const body = {
-      titulo: serie.value.titulo,
-      sinopsis: serie.value.sinopsis,
-      director: serie.value.director,
+      titulo: serie.value.titulo.trim(),
+      sinopsis: serie.value.sinopsis.trim(),
+      director: serie.value.director.trim(),
       temporadas: serie.value.temporadas,
       fechaEstreno: serie.value.fechaEstreno,
     }
+    console.log('Valor de fechaEstreno:', serie.value.fechaEstreno)
+    console.log('Tipo de dato de fechaEstreno:', typeof serie.value.fechaEstreno)
     if (props.modoEdicion) {
       await http.patch(`${ENDPOINT}/${serie.value.id}`, body)
     } else {
@@ -113,12 +105,11 @@ async function handleSave() {
 
       <div class="flex items-center gap-4 mb-4">
         <label for="fechaEstreno" class="font-semibold w-4">Fecha de Estreno</label>
-        <DatePicker
-          type="text"
+        <input
+          type="date"
           id="fechaEstreno"
           v-model="serie.fechaEstreno"
-          class="flex-auto"
-          manual-input
+          class="flex-auto custom-date"
         />
       </div>
 
@@ -136,4 +127,21 @@ async function handleSave() {
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.custom-date {
+  width: 60%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #4a4a4a; /* Un gris oscuro para el borde */
+  border-radius: 0.25rem;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1); /*Sombra interna*/
+  background-color: #09090b; /* Fondo oscuro */
+  color: #ffffff; /* Letras claras */
+}
+
+.custom-date:focus {
+  border-color: #6b6b6b; /* Un gris ligeramente más claro al enfocar */
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(106, 106, 255, 0.25); /* Sombra con un toque de color */
+}
+</style>
